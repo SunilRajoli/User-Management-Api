@@ -20,6 +20,7 @@ export default function Password() {
         initialValues : {
             password : 'admin@123'
         },
+
         validate : passwordValidate,
         validateOnBlur : false,
         validateOnChange : false,
@@ -37,8 +38,9 @@ export default function Password() {
               localStorage.setItem('token', token);
               navigate('/profile')
             })
-          }
-        })
+        }
+
+    })
    
 
     if(isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;

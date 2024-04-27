@@ -26,37 +26,38 @@ export default function Profile() {
           mobile: apiData?.mobile || '',
           address : apiData?.address || ''
         },
+
         enableReinitialize: true,
         validate : profileValidation,
         validateOnBlur : false,
         validateOnChange : false,
         onSubmit : async values => {
           values = await Object.assign(values, { profile : file || apiData?.profile || ''})
-      let updatePromise = updateUser(values);
+          let updatePromise = updateUser(values);
 
-      toast.promise(updatePromise, {
-        loading: 'Updating...',
-        success : <b>Update Successfully...!</b>,
-        error: <b>Could not Update!</b>
-      });
+          toast.promise(updatePromise, {
+            loading: 'Updating...',
+            success : <b>Update Successfully...!</b>,
+            error: <b>Could not Update!</b>
+          });
     
         }
-    })
+      })
 
     /** formik doensn't support file upload so we need to create this handler */
-  const onUpload = async e => {
-    const base64 = await convertToBase64(e.target.files[0]);
-    setFile(base64);
-  }
+      const onUpload = async e => {
+        const base64 = await convertToBase64(e.target.files[0]);
+        setFile(base64);
+      }
 
-  // logout handler function
-  function userLogout(){
-    localStorage.removeItem('token');
-    navigate('/')
-  }
+      // logout handler function
+      function userLogout(){
+        localStorage.removeItem('token');
+        navigate('/')
+      }
 
-  if(isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;
-  if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message}</h1>
+      if(isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;
+      if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message}</h1>
 
 
     return (
